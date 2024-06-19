@@ -17,6 +17,7 @@ class Trofeo(db.Model):
     nombre = db.Column(db.String(100), nullable=False)
     equipo_id = db.Column(db.Integer, db.ForeignKey('equipos.id'), nullable=False)
     finalistas = db.relationship('Finalista', backref='trofeo', lazy=True)
+    Goleador_id = db.relationship('Goleador', backref='trofeo', lazy=True)
 
 class Ganador(db.Model):
     __tablename__ = 'ganadores'
@@ -24,6 +25,11 @@ class Ganador(db.Model):
     nombre = db.Column(db.String(100), nullable=False)
     equipo_id = db.Column(db.Integer, db.ForeignKey('equipos.id'), nullable=False)
     
+class Finalista(db.Model):
+    __tablename__ = 'finalista'
+    id = db.Column(db.Integer, primary_key=True)
+    equipo_id = db.Column(db.Integer, db.ForeignKey('equipos.id'), nullable=False)
+    trofeo_id = db.Column(db.Integer, db.ForeignKey('trofeos.id'), nullable=False)
 
 class Goleador(db.Model):
     __tablename__ = 'goleadores'
@@ -31,6 +37,8 @@ class Goleador(db.Model):
     nombre = db.Column(db.String(100), nullable=False)
     goles = db.Column(db.Integer, nullable=False)
     equipo_id = db.Column(db.Integer, db.ForeignKey('equipos.id'), nullable=False)
+
+
 
 
 
