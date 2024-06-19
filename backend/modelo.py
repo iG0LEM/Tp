@@ -18,14 +18,14 @@ class Trofeo(db.Model):
     equipo_id = db.Column(db.Integer, db.ForeignKey('equipos.id'), nullable=False)
     finalistas = db.relationship('Finalista', backref='trofeo', lazy=True)
 
-class ganador(db.Model):
+class Ganador(db.Model):
     __tablename__ = 'ganadores'
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
     equipo_id = db.Column(db.Integer, db.ForeignKey('equipos.id'), nullable=False)
     
 
-class goleador(db.Model):
+class Goleador(db.Model):
     __tablename__ = 'goleadores'
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
