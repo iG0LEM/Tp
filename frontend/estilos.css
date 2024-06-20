@@ -1,0 +1,56 @@
+header{
+    background-color: rgb(8, 173, 8);
+    text-align: center;
+}
+
+h1 {
+    font-family:'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    padding: 1em 0;
+
+}
+
+h2{
+    text-align: center;
+}
+
+li{
+    display: inline-block;
+    width: 43.5%; /*NO SE USA, usar display flex*/
+    text-align: center;
+    margin: 1em 0;
+    border: 1.5px solid rgb(8, 173, 8);
+    border-radius: 5px;
+    padding: 0.8em;
+    background-color: rgb(8, 173, 8);
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
+
+li:hover{
+    background-color: rgb(158, 207, 158);
+    border:1px solid rgb(8, 173, 8); 
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    font-family: Sedan SC ;
+    font-weight: bold;
+}
+
+main section {
+    max-width: 600px;
+    margin: 2em auto;
+}
+
+* {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
