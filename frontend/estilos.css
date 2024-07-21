@@ -5,7 +5,71 @@ header{
     padding: 1em;
 }
 
-body {
+.Argentina {
+    background-image: url(https://cdn.pixabay.com/photo/2016/06/16/01/20/argentina-1460299_1280.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size: cover;
+    background-position: center center;
+}
+
+.Brasil {
+    background-image: url(https://wallpaper.forfun.com/fetch/8c/8c9ee2d8a17e47590777fa0cccde7926.jpeg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size: cover;
+    background-position: center center;
+}
+
+.Chile {
+    background-image: url(https://i.pinimg.com/originals/59/2e/84/592e842a87b12c95393d806199bcd15e.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size: cover;
+    background-position: center center;
+}
+
+.España {
+    background-image: url(https://s1.1zoom.me/big0/248/328981-alexfas01.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size: cover;
+    background-position: center center;
+}
+
+.Francia {
+    background-image: url(https://i.pinimg.com/originals/ea/fe/d1/eafed17dae066c35f1483d8f531e081a.png);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size: cover;
+    background-position: center center;
+}
+
+.Italia {
+    background-image: url(https://media.istockphoto.com/id/1335145172/es/v%C3%ADdeo/bandera-de-italia-italia-bandera-alto-detalle-bandera-nacional-italia-patr%C3%B3n-de-onda-loopable.jpg?s=640x640&k=20&c=X1BXPh2IJ10RVlRSDZeT5LWdrDg5FFuzMsaNpzg21FE=);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size: cover;
+    background-position: center center;
+}
+
+.Mexico {
+    background-image: url(https://media.istockphoto.com/id/961226640/photo/mexican-flag-waving-symbol-of-mexico.jpg?s=612x612&w=0&k=20&c=_MlvbL2Qf7l7r637PdC3nDYivDt5JcgqD1gODfNMA8k=);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size: cover;
+    background-position: center center;
+}
+
+.Uruguay {
+    background-image: url(https://img.freepik.com/foto-gratis/bandera-uruguay_1401-254.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size: cover;
+    background-position: center center;
+}
+
+.home {
     background-image:url(https://s0.smartresize.com/wallpaper/353/726/HD-wallpaper-football-field-football-field-trees-aerial-view-ground-green-sports.jpg);
     background-repeat: no-repeat;
     background-attachment:fixed;
@@ -28,7 +92,7 @@ h2{
 
 li{
     display: inline-block;
-    width: 43.5%; /*NO SE USA, usar display flex*/
+    width: 42.8%; /*NO SE USA, usar display flex*/
     text-align: center;
     margin: 1em 0;
     border: 1.5px solid rgb(8, 173, 8);
@@ -68,11 +132,13 @@ main section {
 }
 
 footer {
+    height:50px;
+    line-height:50px;
+    color:white;
     text-align:center;
-    position:fixed;
-    left:0px;
-    bottom:0px;
-    height: 37px;
+    position:absolute;
+    bottom:0;
+    left:0;
     width:100%;
     background: rgb(115, 115, 117);
 }
