@@ -15,9 +15,9 @@ def get_equipos():
 @app.route('/equipos', methods=['POST'])
 def post_equipo():
     pais = request.json.get('pais')
-    trofeos = request
+    trofeos = request.json.get('trofeos')
     goleador = request.json.get('goleador')
-    equipo = Equipo(pais=pais, trofeos=trofeos, goleador=goleador)  #falta corregir error de trofeos
+    equipo = Equipo(pais=pais, trofeos=trofeos, goleador=goleador)
     db.session.add(equipo)
     db.session.commit()
     return jsonify(equipo.pais)
