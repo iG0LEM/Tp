@@ -15,7 +15,9 @@ def get_equipos():
 @app.route('/equipos', methods=['POST'])
 def post_equipo():
     pais = request.json.get('pais')
-    equipo = Equipo(pais=pais)
+    trofeos = request
+    goleador = request.json.get('goleador')
+    equipo = Equipo(pais=pais, trofeos=trofeos, goleador=goleador)  #falta corregir error de trofeos
     db.session.add(equipo)
     db.session.commit()
     return jsonify(equipo.pais)
@@ -28,39 +30,12 @@ def get_trofeos():
 @app.route('/trofeos', methods=['POST'])
 def post_trofeo():
     nombre = request.json.get('nombre')
+    anio = request.json.get('anio')
     equipo_id = request.json.get('equipo_id')
-    trofeo = Trofeo(nombre=nombre, equipo_id=equipo_id)
+    trofeo = Trofeo(nombre=nombre, anio=anio, equipo_id=equipo_id)
     db.session.add(trofeo)
     db.session.commit()
     return jsonify(trofeo.nombre)
-
-@app.route('/ganadores', methods=['GET'])
-def get_ganadores():
-    ganadores = Ganador.query.all()
-    return jsonify([ganador.nombre for ganador in ganadores])
-
-@app.route('/ganadores', methods=['POST'])
-def post_ganador():
-    nombre = request.json.get('nombre')
-    equipo_id = request.json.get('equipo_id')
-    ganador = Ganador(nombre=nombre, equipo_id=equipo_id)
-    db.session.add(ganador)
-    db.session.commit()
-    return jsonify(ganador.nombre)
-
-@app.route('/finalistas', methods=['GET'])
-def get_finalistas():
-    finalistas = Finalista.query.all()
-    return jsonify([finalista.id for finalista in finalistas])
-
-@app.route('/finalistas', methods=['POST'])
-def post_finalista():
-    equipo_id = request.json.get('equipo_id')
-    trofeo_id = request.json.get('trofeo_id')
-    finalista = Finalista(equipo_id=equipo_id, trofeo_id=trofeo_id)
-    db.session.add(finalista)
-    db.session.commit()
-    return jsonify(finalista.id)
 
 @app.route('/goleadores', methods=['GET'])
 def get_goleadores():
