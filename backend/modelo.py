@@ -7,7 +7,7 @@ class Equipo(db.Model):
     __tablename__ = 'equipos'
     id = db.Column(db.Integer, primary_key=True)
     pais = db.Column(db.String(100), nullable=False)
-    trofeos = db.relationship('Trofeo', backref='equipo', lazy=True)
+    trofeos = db.Column(db.Integer, nullable=False)
     goleador = db.Column(db.String(100), nullable=False)
 
 class Trofeo(db.Model):
