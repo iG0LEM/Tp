@@ -185,3 +185,28 @@ footer {
     font-weight: bold;
     color: #009879;
 }
+
+header nav li{
+    display:inline-block;
+    width: 20%; /*NO SE USA, usar display flex*/
+    text-align: center;
+    margin: 1em 5;
+    font-size:small;
+    padding: 0.5em;
+    background-color: #009879;
+    border: none;
+    margin-bottom: 0em;
+    margin-top: 3em;
+}
+
+header nav li:hover {
+    background-color: rgb(158, 207, 158);
+    color: blueviolet;
+    border:1px none;
+    padding: 0.5em 1em;
+}
+
+header nav ul {
+    padding: 0;
+    list-style: none;
+}
