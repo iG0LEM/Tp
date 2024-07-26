@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from modelo import db, Equipo, Trofeo, Ganador, Finalista, Goleador
+from modelo import db, Equipo, Trofeo, Goleador
 
 app = Flask(__name__)
 port=5000
