@@ -1,0 +1,162 @@
+<!DOCKTYPE html>
+<html lang="en"></html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitrina</title>
+
+    <!-- CSS -->
+     <link rel="stylesheet" href="\static\estilos.css">
+</head>
+
+<body class="home">
+  <header>
+    <a href="\">LA VITRINA</a>
+
+    <nav>
+        <ul>
+            <li><a href="trofeos">Trofeos</a></li>
+            <li><a href="\">Paises</a></li>
+            <li><a href="goleadores">Goleadores</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+    <main>
+      <section>
+        <body>
+            <h1>Recuento de Copas</h1>
+
+            <form id="trofeoForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="anio">Año:</label>
+                    <input type="number" id="anio" name="anio" required>
+                </div>
+                <div class="form-group">
+                    <label for="equipo_id">Equipo ID:</label>
+                    <input type="number" id="equipo_id" name="equipo_id" required>
+                </div>
+                <button type="submit" class="btn">Agregar Trofeo</button>
+            </form>
+
+    <form id="eliminarTrofeoForm">
+        <div class="form-group">
+            <label for="trofeo_id">ID del Trofeo:</label>
+            <input type="number" id="trofeo_id" name="trofeo_id" required>
+        </div>
+        <button type="button" class="btn"  onclick="eliminarTrofeo()">Eliminar Trofeo</button>
+    </form>
+
+            {% block content %}
+            <table id="data", class="content-table" >
+                <thead>
+                    <tr>
+			<th>ID</th>
+                        <th>Nombre</th>
+                        <th>Año</th>
+                        <th>Equipo ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trofeo in trofeos %}
+                    <tr class="active-row">
+			<td>{{ trofeo.id }}</td>
+                        <td>{{ trofeo.nombre }}</td>
+                        <td>{{ trofeo.anio }}</td>
+                        <td>{{ trofeo.equipo_id }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endblock %}
+	    <!--</body>-->
+      </section>
+
+       <div class="pagination">
+        {% if trofeos.has_prev %}
+            <a href="{{ url_for('trofeos', page=trofeos.prev_num) }}" class="btn">&laquo; Anterior</a>
+        {% else %}
+            <span class="btn disabled">&laquo; Anterior</span>
+        {% endif %}
+
+        {% for page_num in trofeos.iter_pages() %}
+            {% if page_num %}
+                {% if page_num == trofeos.page %}
+                    <span class="btn active">{{ page_num }}</span>
+                {% else %}
+                    <a href="{{ url_for('trofeos', page=page_num) }}" class="btn">{{ page_num }}</a>
+                {% endif %}
+            {% else %}
+                <span class="btn">...</span>
+            {% endif %}
+        {% endfor %}
+
+        {% if trofeos.has_next %}
+            <a href="{{ url_for('trofeos', page=trofeos.next_num) }}" class="btn">Siguiente &raquo;</a>
+        {% else %}
+            <span class="btn disabled">Siguiente &raquo;</span>
+        {% endif %}
+    </div>
+
+    <script>
+        document.getElementById('trofeoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const anio = document.getElementById('anio').value;
+            const equipo_id = document.getElementById('equipo_id').value;
+
+            fetch('/trofeos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nombre: nombre, anio: anio, equipo_id: equipo_id })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Trofeo ${data} agregado exitosamente!`);
+                location.reload();  // Recargar la página para mostrar el nuevo trofeo
+            })
+            .catch(error => console.error('Error:', error));
+        });
+   </script>
+
+    <script>
+        function eliminarTrofeo() {
+            const id = document.getElementById('trofeo_id').value;
+
+            fetch(`/trofeos/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.message === 'Trofeo eliminado exitosamente') {
+                    document.getElementById('eliminarTrofeoForm').reset(); // Limpia el formulario
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Hubo un error al eliminar el trofeo.');
+            });
+        }
+    </script>
+
+   </body>
+    </main>
+
+
+    <footer>
+        <a href="https://sanlorenzo.com.ar//">©2024 Ciclon el tercer grande</a>
+    </footer>
+</body>

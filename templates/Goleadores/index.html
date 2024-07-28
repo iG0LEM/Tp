@@ -1,0 +1,164 @@
+<!DOCKTYPE html>
+<html lang="en"></html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitrina</title>
+
+    <!-- CSS -->
+     <link rel="stylesheet" href="\static\estilos.css">
+</head>
+
+<body class="home">
+  <header>
+    <a href="\">LA VITRINA</a>
+
+    <nav>
+        <ul>
+            <li><a href="trofeos">Trofeos</a></li>
+            <li><a href="\">Paises</a></li>
+            <li><a href="goleadores">Goleadores</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+    <main>
+        <section>
+		        <body>
+            <h1>Ranking de Goleadores</h1>
+
+	<form id="goleadorForm">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="goles">Goles:</label>
+            <input type="number" id="goles" name="goles" required>
+        </div>
+        <div class="form-group">
+            <label for="equipo_id">Equipo ID:</label>
+            <input type="number" id="equipo_id" name="equipo_id" required>
+        </div>
+        <button type="button" class="btn"  onclick="agregarGoleador()">Agregar Goleador</button>
+    	</form>
+
+    <form id="eliminarGoleadorForm">
+        <div class="form-group">
+            <label for="goleador_id">ID del Goleador:</label>
+            <input type="number" id="goleador_id" name="goleador_id" required>
+        </div>
+        <button type="button" class="btn"  onclick="eliminarGoleador()">Eliminar Goleador</button>
+    </form>
+
+            {% block content %}
+            <table id="data", class="content-table">
+                <thead>
+                    <tr>
+			<th>ID</th>
+                        <th>Nombre</th>
+                        <th>Equipo</th>
+                        <th>Goles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for goleador in goleadores %}
+                    <tr class="active-row">
+			<td>{{ goleador.id }}</td>
+                        <td>{{ goleador.nombre }}</td>
+                        <td>{{ goleador.equipo_id }}</td>
+                        <td>{{ goleador.goles }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endblock %}
+
+    <div class="pagination">
+        {% if goleadores.has_prev %}
+            <a href="{{ url_for('goleadores', page=goleadores.prev_num) }}" class="btn" >&laquo; Anterior</a>
+        {% endif %}
+        {% for page_num in goleadores.iter_pages() %}
+            {% if page_num %}
+                {% if page_num == goleadores.page %}
+                    <a href="#" class="btn active">{{ page_num }}</a>
+                {% else %}
+                    <a href="{{ url_for('goleadores', page=page_num) }}" class="btn": >{{ page_num }}</a>
+                {% endif %}
+            {% else %}
+                <span class="btn" >...</span>
+            {% endif %}
+        {% endfor %}
+        {% if goleadores.has_next %}
+            <a href="{{ url_for('goleadores', page=goleadores.next_num) }}" class="btn" >Siguiente &raquo;</a>
+        {% endif %}
+    </div>
+
+        </body>
+        </section>
+
+	<script>
+        function agregarGoleador() {
+            const form = document.getElementById('goleadorForm');
+            const formData = new FormData(form);
+            const data = {
+                nombre: formData.get('nombre'),
+                goles: formData.get('goles'),
+                equipo_id: formData.get('equipo_id')
+            };
+
+            fetch('/goleadores', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Goleador agregado: ${data}`);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Hubo un error al agregar el goleador.');
+            });
+        }
+      </script>
+
+    <script>
+        function eliminarGoleador() {
+            const id = document.getElementById('goleador_id').value;
+
+            fetch(`/goleadores/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.message === 'Goleador eliminado exitosamente') {
+                    document.getElementById('eliminarGoleadorForm').reset(); // Limpia el formulario
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Hubo un error al eliminar el goleador.');
+            });
+        }
+    </script>
+
+    </main>
+
+
+
+
+
+    <footer>
+        <a href="https://sanlorenzo.com.ar//">©2024 Ciclon el tercer grande</a>
+    </footer>
+</body>

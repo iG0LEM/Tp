@@ -1,0 +1,142 @@
+<!DOCKTYPE html>
+<html lang="en"></html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitrina</title>
+
+    <!-- CSS -->
+     <link rel="stylesheet" href="\static\estilos.css">
+</head>
+
+<body class="España">
+  <header>
+    <a href="\">LA VITRINA</a>
+
+    <nav>
+        <ul>
+            <li><a href="/trofeos">Trofeos</a></li>
+            <li><a href="\">Paises</a></li>
+            <li><a href="/goleadores">Goleadores</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+    <main>
+                         <section>
+        <body>
+            <h1>España</h1>
+
+    <form id="equipoForm">
+        <div class="form-group">
+            <label for="pais">País:</label>
+            <input type="text" id="pais" name="pais" required>
+        </div>
+        <div class="form-group">
+            <label for="Cantidad_trofeos">Cantidad de Trofeos:</label>
+            <input type="number" id="Cantidad_trofeos" name="Cantidad_trofeos" required>
+        </div>
+        <div class="form-group">
+            <label for="goleador">Goleador:</label>
+            <input type="text" id="goleador" name="goleador" required>
+        </div>
+        <button type="button"  class="btn" onclick="agregarEquipo()">Agregar Equipo</button>
+    </form>
+
+    <form id="eliminarEquipoForm">
+        <div class="form-group">
+            <label for="equipo_id">ID del Equipo:</label>
+            <input type="number" id="equipo_id" name="equipo_id" required>
+        </div>
+        <button type="button" class="btn"  onclick="eliminarEquipo()">Eliminar Equipo</button>
+    </form>
+
+            {% block content %}
+            <table id="data", class="content-table">
+                <thead>
+                    <tr>
+			<th>ID</th>
+                        <th>Pais</th>
+                        <th>Trofeos</th>
+                        <th>Goleador</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for equipo in equipos %}
+                    <tr class="active-row">
+			<td>{{ equipo.id }}</td>
+                        <td>{{ equipo.pais }}</td>
+                        <td>{{ equipo.trofeos }}</td>
+                        <td>{{ equipo.goleador }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endblock %}
+        </body>
+      </section>
+
+    <script>
+        function agregarEquipo() {
+            const form = document.getElementById('equipoForm');
+            const formData = new FormData(form);
+            const data = {
+                pais: formData.get('pais'),
+                Cantidad_trofeos: formData.get('Cantidad_trofeos'),
+                goleador: formData.get('goleador')
+            };
+
+            fetch('/equipos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Equipo agregado: ${data}`);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Hubo un error al agregar el equipo.');
+            });
+        }
+    </script>
+
+    <script>
+        function eliminarEquipo() {
+            const id = document.getElementById('equipo_id').value;
+
+            fetch(`/equipos/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.message === 'Equipo eliminado exitosamente') {
+                    document.getElementById('eliminarEquipoForm').reset(); // Limpia el formulario
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Hubo un error al eliminar el equipo.');
+            });
+        }
+    </script>
+
+    </main>
+
+
+
+
+
+    <footer>
+        <a href="https://sanlorenzo.com.ar//">©2024 Ciclon el tercer grande</a>
+    </footer>
