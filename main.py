@@ -61,7 +61,7 @@ def show_equipos_uruguay():
     equipos = Equipo.query.where(Equipo.pais=='Uruguay').all()
     return render_template('Paises/Uruguay/index.html', equipos=equipos, pais='Uruguay')
 
-@app.route('/trofeos')
+@app.route('/trofeos2')
 def trofeos():
     page = request.args.get('page', 1, type=int)
     per_page = 10  # Número de elementos por página
@@ -99,6 +99,15 @@ def post_equipo():
 @app.route('/trofeos', methods=['GET'])
 def get_trofeos():
     trofeos = Trofeo.query.all()
+    trofeos_data []
+    for trofeo in trofeos:
+        trofeo_data = {
+            'id': trofeo.id,
+            'nombre': trofeo.nombre,
+            'anio': trofeo.anio,
+            'equipo': trofeo.equipo
+        }
+        trofeos_data.append(trofeo_data)
     return jsonify([trofeo.nombre for trofeo in trofeos])
 
 @app.route('/trofeos', methods=['POST'])
