@@ -4,7 +4,7 @@ from models import db, Equipo, Goleador, Trofeo
 
 app = Flask(__name__)
 port = 5000
-app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql+psycopg2://postgres:golem@localhost:5432/vitrina'
+app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql+psycopg2:///vitrina'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
 @app.route('/')
