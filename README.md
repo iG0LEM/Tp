@@ -3,12 +3,26 @@
 
 ------
 Instalation:
-at linux console (create ssh keys)
-ssh-keygen
-then upload id_rsa.pub to gitub keys.
-after that clone code.
-ssh-agent $(ssh-add /home/nicolas/.ssh/id_rsa.pub; git pull git@github.com:iG0LEM/Tp.git)
+1) Creo base de datos
+
+sudo -u postgres createdb vitrina
+
+ 
+
+2) Creo tablas del sistema
+
+ 
+
+psql -U postgres -d vitrina  -f vitrina-schema.sql
+
+ 
+
+3)  Cargo informacion inicial, para tener algo para mostrar (opcional)
+
+psql -U postgres -d vitrina  -f vitrina-data.sql
 
 
 ------
 Run:
+
+python main.py
