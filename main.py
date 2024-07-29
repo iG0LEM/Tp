@@ -105,8 +105,8 @@ def get_trofeos():
 def post_trofeo():
     nombre = request.json.get('nombre')
     anio = request.json.get('anio')
-    equipo_id = request.json.get('equipo_id')
-    trofeo = Trofeo(nombre=nombre, anio=anio, equipo_id=equipo_id)
+    equipo = request.json.get('equipo')
+    trofeo = Trofeo(nombre=nombre, anio=anio, equipo=equipo)
     db.session.add(trofeo)
     db.session.commit()
     return jsonify(trofeo.nombre)
@@ -120,8 +120,8 @@ def get_goleadores():
 def post_goleador():
     nombre = request.json.get('nombre')
     goles = request.json.get('goles')
-    equipo_id = request.json.get('equipo_id')
-    goleador = Goleador(nombre=nombre, goles=goles, equipo_id=equipo_id)
+    equipo = request.json.get('equipo')
+    goleador = Goleador(nombre=nombre, goles=goles, equipo=equipo)
     db.session.add(goleador)
     db.session.commit()
     return jsonify(goleador.nombre)

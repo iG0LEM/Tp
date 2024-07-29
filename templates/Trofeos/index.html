@@ -41,8 +41,8 @@
                     <input type="number" id="anio" name="anio" required>
                 </div>
                 <div class="form-group">
-                    <label for="equipo_id">Equipo ID:</label>
-                    <input type="number" id="equipo_id" name="equipo_id" required>
+                    <label for="equipo_id">Equipo:</label>
+                    <input type="text" id="equipo" name="equipo" required>
                 </div>
                 <button type="submit" class="btn">Agregar Trofeo</button>
             </form>
@@ -62,7 +62,7 @@
 			<th>ID</th>
                         <th>Nombre</th>
                         <th>Año</th>
-                        <th>Equipo ID</th>
+                        <th>Equipo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,7 +71,7 @@
 			<td>{{ trofeo.id }}</td>
                         <td>{{ trofeo.nombre }}</td>
                         <td>{{ trofeo.anio }}</td>
-                        <td>{{ trofeo.equipo_id }}</td>
+                        <td>{{ trofeo.equipo }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -111,7 +111,7 @@
             event.preventDefault();
             const nombre = document.getElementById('nombre').value;
             const anio = document.getElementById('anio').value;
-            const equipo_id = document.getElementById('equipo_id').value;
+            const equipo = document.getElementById('equipo').value;
 
             fetch('/trofeos', {
                 method: 'POST',

@@ -15,11 +15,11 @@ class Trofeo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
     anio = db.Column(db.Integer, nullable=False)
-    equipo_id = db.Column(db.Integer, db.ForeignKey('equipos.id'), nullable=False)
+    equipo = db.Column(db.String(100), nullable=False)
 
 class Goleador(db.Model):
     __tablename__ = 'goleadores'
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
-    equipo_id = db.Column(db.Integer, db.ForeignKey('equipos.id'), nullable=False)
+    equipo = db.Column(db.String(100), nullable=False)
     goles = db.Column(db.Integer, nullable=False)

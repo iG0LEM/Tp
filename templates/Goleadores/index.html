@@ -41,7 +41,7 @@
             <input type="number" id="goles" name="goles" required>
         </div>
         <div class="form-group">
-            <label for="equipo_id">Equipo ID:</label>
+            <label for="equipo_id">Equipo:</label>
             <input type="number" id="equipo_id" name="equipo_id" required>
         </div>
         <button type="button" class="btn"  onclick="agregarGoleador()">Agregar Goleador</button>
@@ -70,7 +70,7 @@
                     <tr class="active-row">
 			<td>{{ goleador.id }}</td>
                         <td>{{ goleador.nombre }}</td>
-                        <td>{{ goleador.equipo_id }}</td>
+                        <td>{{ goleador.equipo }}</td>
                         <td>{{ goleador.goles }}</td>
                     </tr>
                     {% endfor %}
@@ -108,7 +108,7 @@
             const data = {
                 nombre: formData.get('nombre'),
                 goles: formData.get('goles'),
-                equipo_id: formData.get('equipo_id')
+                equipo: formData.get('equipo')
             };
 
             fetch('/goleadores', {
